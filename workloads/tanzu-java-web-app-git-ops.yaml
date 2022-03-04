@@ -1,0 +1,16 @@
+---
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: tanzu-java-web-app
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: web
+  name: tanzu-java-web-app-git-ops
+  namespace: dev-space
+spec:
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/tsalm-pivotal/tap-tanzu-java-web-app

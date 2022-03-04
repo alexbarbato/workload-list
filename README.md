@@ -1,25 +1,31 @@
-# Tanzu App Accelerators Importer
+# Tanzu App Workload Importer
 
-## Application Accelerator List Repo Reconciler
+## Application Workload Repo Reconciler
 
 ## Problem Description
-Tanzu application accelerator CRD are explicitly added to a tanzu cluster using kubectl. Create privileges are thus required in the accelerator-system namespace. While future updates to created accelerators need only have commits made to the underlying git repos where they're stored, the addition of new accelerators requires this elevated permission on the cluster.
+Realistically development teams will likely not be allowed to imperatively add workloads to build or run clusters. They will probably need to make some PR to a repo and have it approved to be "automatically" applied.
+
+Beyond that there is the day 2 problems of a workload definition - what if a new service claim is added? A different supply chain targeted? A change in some git repo? etc.
+
+Workloads do not by default have a reconciliation loop today to stay current.
 
 ## Solution
-Deploy a kapp that instructs the kapp-controller to ensure all accelerators defined in a given git-repo will be deployed automatically to the TAP cluster.
+Deploy a kapp that instructs the kapp-controller to ensure all workloads defined in a given git-repo will be deployed automatically to the TAP cluster and then continuously reconciled.
 
-Now when new accelerators are to be added to the cluster, the only requirement is that their definitions files are checked into this repo.
+Now when new workloads are to be added to the cluster or changed, the only requirement is that their definitions files are checked into this repo.
 
 
 ## Usage
-Fork this repo and update your accelerators-list.yaml to refer to your fork.
+Fork this repo and update your workload-list.yaml to refer to your fork.
 
-Use kapp to continuously deploy reconciling this accelerator repo.
+Use kapp to continuously deploy reconciling this workload repo.
 
-Place any desired application accelerator definitions in the _accelerators_ subfolder
+Place any desired application workload definitions in the _workloads_ subfolder
 
 ``` 
-kapp deploy -a accelerators-list -f ./accelerators-list.yaml
+export ${DEVELOPER-NAMESPACE}=THE_DEVELOPER_NAMESPACE_YOU_HAVE_CONFIGURED
+kapp deploy -a ${DEVELOPER-NAMESPACE} -f ./workload-list.yaml
 ```
 
-
+## Bonus
+In theory you could use the _clusters_ folder to do store your TAP installation manifests and use this as a place to store your entire TAP installation, to include workloads.

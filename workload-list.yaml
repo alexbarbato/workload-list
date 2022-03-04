@@ -1,0 +1,19 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: workload-list 
+  namespace: dev-space
+spec:
+  serviceAccountName: default
+  
+  fetch:
+  - git:
+      url: https://github.com/alexbarbato/workload-list
+      ref: origin/main
+
+      subPath: workloads
+
+  template:
+  - ytt: {}
+  deploy: 
+  - kapp: {}
