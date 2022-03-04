@@ -23,6 +23,7 @@ Use kapp to continuously deploy reconciling this workload repo.
 Place any desired application workload definitions in the _workloads_ subfolder
 
 ``` 
+kubectl apply -f ./gitops-service-account.yaml
 kapp deploy -a workload-list -f ./workload-list.yaml
 ```
 

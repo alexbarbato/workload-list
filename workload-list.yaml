@@ -4,7 +4,7 @@ metadata:
   name: workload-list 
   namespace: default
 spec:
-  serviceAccountName: default
+  serviceAccountName: gitops-service-account
   
   fetch:
   - git:
