@@ -23,8 +23,7 @@ Use kapp to continuously deploy reconciling this workload repo.
 Place any desired application workload definitions in the _workloads_ subfolder
 
 ``` 
-export ${DEVELOPER-NAMESPACE}=THE_DEVELOPER_NAMESPACE_YOU_HAVE_CONFIGURED
-kapp deploy -a ${DEVELOPER-NAMESPACE} -f ./workload-list.yaml
+kapp deploy -a workload-list -f ./workload-list.yaml
 ```
 
 ## Bonus
